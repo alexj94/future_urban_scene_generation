@@ -66,7 +66,7 @@ python gui_test.py <data_dir>/<video_dir> <data_dir>/3Dkpoints <data_dir>/checkp
 ```
 
 Add the parameter `--inpaint` to use the inpainting on the 
-vehicle instead of the background suppression.
+vehicle instead of the static background.
 
 ### Description and GUI usage
 
@@ -74,7 +74,9 @@ If everything went well, you should see the main GUI in
 which you can choose whichever vehicle you want that 
 was detected in the video frame or change the video frame.
 
-[GUI image]
+<p align="center">
+  <img src="imgs/gui.png"/ alt="Multi stage pipeline">
+</p>
 
 The commands working on this window are:
 1) `RIGHT ARROW` = go to next frame
