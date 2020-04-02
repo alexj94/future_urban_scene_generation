@@ -1,6 +1,8 @@
 # Future urbane scene generation through vehicle synthesis
 
-[RESULTS IMAGES]
+<p align="center">
+  <img src="imgs/sequence.png"/ alt="Multi stage pipeline">
+</p>
 
 ## Abstract
 
@@ -22,7 +24,7 @@ end-to-end scene-generation methods on CityFlow, a real
 world dataset.
 
 <p align="center">
-  <img src="imgs/model.svg"/ alt="Multi stage pipeline">
+  <img src="imgs/model.png"/ alt="Multi stage pipeline">
 </p>
 
 ---
