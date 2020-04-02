@@ -2,11 +2,11 @@ import cv2
 import numpy as np
 import open3d as o3d
 
-from integration.online_visibility import compute_visibility
-from integration.planes_utils import get_planes
-from integration.render_open3d import get_rendered
 from utils.crop_utils import square_crop_from_bbox
 from utils.keypoint_utils import kpoints_dict_to_array, kpoints_array_to_dict, normalize_kpoints
+from warp_learn.online_visibility import compute_visibility
+from warp_learn.planes_utils import get_planes
+from warp_learn.render_open3d import get_rendered
 
 
 def get_vehicle_information(ply: o3d.geometry.TriangleMesh, frame: np.ndarray,

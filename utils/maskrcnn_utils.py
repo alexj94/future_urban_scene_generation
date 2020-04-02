@@ -1,4 +1,4 @@
-from detectron2.detectron2.config import get_cfg
+from detectron2.config import get_cfg
 
 
 def setup_cfg():

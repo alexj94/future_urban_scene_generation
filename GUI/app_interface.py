@@ -129,17 +129,14 @@ class main_GUI(QWidget):
         inference_button.clicked.connect(self.perform_test)
 
         button_v_layout.addWidget(button_info_label, alignment=Qt.AlignLeft)
-        button_h_layout.addWidget(self.inter_button, alignment=Qt.AlignCenter)
-        button_h_layout.addWidget(self.traj_button, alignment=Qt.AlignCenter)
-        button_v_layout.addLayout(button_h_layout)
         button_v_layout.addWidget(inference_button, alignment=Qt.AlignCenter)
 
         first_v_layout.addLayout(info_v_layout)
         first_v_layout.addLayout(button_v_layout)
 
         # VIDEO LAYOUT
-        video_label = QLabel(f'Cityflow video '
-                             f'"{self.video_dir._cparts[3]}/{self.video_dir._cparts[4]}"')
+        video_label = QLabel(f'Cityflow video "{self.video_dir._cparts[-1]}" '
+                             f'from scene "{self.video_dir._cparts[-2]}"')
         video_label.setFont(QtGui.QFont('Sans Serif', 20, QtGui.QFont.ExtraBold))
         video_label.setGeometry(QRect(0, 0, 1281, 20))
         self.curr_frame_label = QLabel(f'Current frame: {self.curr_frame}')
@@ -227,6 +224,8 @@ class main_GUI(QWidget):
                                  self.model_VUnet, self.cads_ply, self.kpoints_dicts,
                                  self.inpaint_flag)
 
+            a = 0
+
     def get_pos(self, event):
         """
         Handle click events on bounding boxes
@@ -283,6 +282,7 @@ class main_GUI(QWidget):
 
         elif event.key() == Qt.Key_Right:
             self.curr_frame += 1
+            self.cap.set(cv2.CAP_PROP_POS_FRAMES, self.curr_frame - 1)
             ret, frame = self.cap.read()
             if not ret:
                 return

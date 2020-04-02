@@ -1,3 +1,4 @@
+from pathlib import Path
 from time import time
 from typing import Union
 
@@ -478,9 +479,18 @@ def traj_test(args, cap, frame_id, frame, bboxes, trajectories, inv_homo_matrix,
     print(f"Prediction at 0.6s in the future of {len(bboxes)} vehicles "
           f"took {end_time - start_time} seconds!")
 
+    warp_learn_res_dir = Path(f'./results/warp&learn/'
+                              f'{args.video_dir._cparts[-2]}_{args.video_dir._cparts[-1]}')
+    if not warp_learn_res_dir.is_dir():
+        warp_learn_res_dir.mkdir(parents=True, exist_ok=True)
+    vunet_res_dir = Path(f'./results/vunet/'
+                              f'{args.video_dir._cparts[-2]}_{args.video_dir._cparts[-1]}')
+    if not vunet_res_dir.is_dir():
+        vunet_res_dir.mkdir(parents=True, exist_ok=True)
+
     frame_ids = [frame_id, frame_id + 2, frame_id + 4, frame_id + 6, frame_id + 8, frame_id + 10]
     for i, id in enumerate(frame_ids):
-        cv2.imwrite(f'/home/alessandro/Desktop/icn_{id:04}.png', result_frames_icn[i])
-        cv2.imwrite(f'/home/alessandro/Desktop/vunet_{id:04}.png', result_frames_vunet[i])
+        cv2.imwrite(str(warp_learn_res_dir / f'{id:04}.png'), result_frames_icn[i])
+        cv2.imwrite(str(vunet_res_dir / f'{id:04}.png'), result_frames_vunet[i])
 
     return cap

@@ -8,8 +8,8 @@ from PIL import Image
 from torch import nn
 from torchvision.transforms import ToTensor, Normalize
 
-from integration.planes_utils import planes_to_torch
 from utils.crop_utils import square_crop_from_bbox
+from warp_learn.planes_utils import planes_to_torch
 
 
 class LayerNorm(nn.Module):

@@ -9,7 +9,7 @@ import cv2
 import numpy as np
 import torch
 
-from integration.online_visibility import pascal_texture_planes
+from warp_learn.online_visibility import pascal_texture_planes
 
 
 def get_planes(image: np.ndarray, src_kpoint_dict, pascal_class: str,
