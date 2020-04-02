@@ -22,7 +22,7 @@ end-to-end scene-generation methods on CityFlow, a real
 world dataset.
 
 <p align="center">
-  <img src="images/model.svg"/ alt="Multi stage pipeline">
+  <img src="imgs/model.svg"/ alt="Multi stage pipeline">
 </p>
 
 ---
