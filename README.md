@@ -18,10 +18,7 @@ generating a synthetic representation of an object
 undergoing a geometrical roto-translation in the 3D space. 
 Our model can be easily conditioned with constraints (e.g. 
 input trajectories) provided by state-of-the-art tracking 
-methods or by the user. We visually and quantitatively 
-show the superiority of this approach over traditional 
-end-to-end scene-generation methods on CityFlow, a real 
-world dataset.
+methods or by the user.
 
 <p align="center">
   <img src="imgs/model.png"/ alt="Multi stage pipeline">
