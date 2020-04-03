@@ -53,7 +53,7 @@ system.
 To run the demo of our project, please firstly download all 
 the required data at this [link](https://drive.google.com/open?id=1jZ5KwrIFY78vURmI-3ceHRZtk3CPQhot) 
 and save them in a `<data_dir>` of your choice. We tested 
-our pipeline on the **CityFlow** dataset that already have 
+our pipeline on the **Cityflow** dataset that already have 
 annotated bounding boxes and trajectories of vehicles.
 
 The test script is `run_test.py` that expects some 
