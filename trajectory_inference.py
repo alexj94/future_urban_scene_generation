@@ -1,13 +1,11 @@
 from pathlib import Path
 from time import time
-from typing import Union
 
 import cv2
 import numpy as np
 import open3d as o3d
 import torch
 import torch.nn.functional as F
-from PIL.Image import Image
 from torchvision.transforms import transforms
 from torchvision.transforms.functional import normalize
 
@@ -23,36 +21,19 @@ from utils.keypoint_utils import get_maxima
 from utils.keypoint_utils import kpoints_array_to_dict
 from utils.keypoint_utils import kpoints_dict_to_array
 from utils.maskrcnn_utils import setup_cfg
+from utils.misc_utils import to_tensor
 from utils.pnp_utils import cpc_rodr_4_angles
+from warp_learn.models import get_icn_inputs
 from warp_learn.online_visibility import pascal_texture_planes
 from warp_learn.planes_utils import to_image
 from warp_learn.planes_utils import warp_unwarp_planes
 from warp_learn.vehicle_utils import get_central_crop
 from warp_learn.vehicle_utils import get_vehicle_information
-from warp_learn.von import get_icn_inputs
 
 
 # from detectron2.demo.predictor import VisualizationDemo
 # from matplotlib import pyplot as plt
 # from utils.gui_utils import draw_trajectory
-
-
-def to_tensor(image: Union[Image, np.ndarray], max_range: int = 255):
-    """
-    Convert an image in range [0, `max_range`] to a torch tensor in range [-1, 1].
-    :param image: np.ndarray or PIL image
-    :param max_range: max value the image can assume
-    :return: torch.FloatTensor
-    """
-    if isinstance(image, Image):
-        image = np.asarray(image)
-    image = np.float32(image)
-    assert image.max() <= max_range
-    image = image / max_range
-    image = np.transpose(image, (2, 0, 1))
-    image = image * 2. - 1.
-    image = torch.from_numpy(image)
-    return image
 
 
 def traj_test(args, cap, frame_id, frame, bboxes, trajectories, inv_homo_matrix, bbox_scale, img_scale,

@@ -23,7 +23,7 @@ def parse_tracking_files(video_dir: Path, track_type: str, det_mode: str):
 
 def parse_calibration_file(calibration_file: Path):
     """
-    Read CityFlow calibration file
+    Parse CityFlow calibration file
     """
     if not calibration_file.is_file():
         raise FileNotFoundError()

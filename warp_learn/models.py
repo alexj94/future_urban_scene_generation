@@ -258,8 +258,10 @@ class D_NLayersMulti(nn.Module):
                 down = self.down(down)
         return result
 
+
 class GANLoss(nn.Module):
-    """Define different GAN objectives.
+    """
+    Define different GAN objectives.
     The GANLoss class abstracts away the need to create the target label tensor
     that has the same size as the input.
     """

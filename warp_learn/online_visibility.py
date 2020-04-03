@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Online visibility model
-"""
 from collections import defaultdict
 from copy import deepcopy
 
@@ -109,8 +105,8 @@ def get_plane_area(pl_image: np.ndarray):
 def compute_visibility(extrinsic, intrinsic, kpoints_3d, h, w):
 
     # The following two planes are added just for the sake of correct behavior of
-    #  this function. Indeed, although we do not want to add them to warped planes in
-    #  deployment, we must add them here to handle occlusion correctly.
+    # this function. Indeed, although we do not want to add them to warped planes in
+    # deployment, we must add them here to handle occlusion correctly.
     pascal_texture_planes_extended = deepcopy(pascal_texture_planes)
     pascal_texture_planes_extended['car']['front_bt'] = ['left_front_light', 'right_front_light',
                                                          'right_front_wheel', 'left_front_wheel']

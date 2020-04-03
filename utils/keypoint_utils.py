@@ -1,12 +1,7 @@
-# -*- coding: utf-8 -*-
-"""
-    KeypointDataset training utlity functions
-"""
 import warnings
 
 import cv2
 import numpy as np
-import yaml
 from matplotlib import cm
 
 from utils.misc_utils import Color
@@ -78,8 +73,6 @@ def get_maxima(heatmap_tensor, thresh):
     :param thresh: Threshold used to filter false positives.
     """
 
-    # todo: consider also threshold in keypoints maximum value
-
     if len(heatmap_tensor.shape) != 4:
         raise ValueError('Input tensor must have 4D shape (b, c, h, w).')
 
@@ -107,7 +100,10 @@ def random_blend_grid(true_blends, pred_blends):
     return grid
 
 
-def to_colormap(heatmap_tensor, device, cmap = 'jet', cmap_range=(None, None)):
+def to_colormap(heatmap_tensor, cmap = 'jet', cmap_range=(None, None)):
+    """
+    Create a color heatmap representing each keypoint
+    """
     if not isinstance(heatmap_tensor, np.ndarray):
         try:
             heatmap_tensor = heatmap_tensor.to('cpu').numpy()
@@ -129,22 +125,6 @@ def to_colormap(heatmap_tensor, device, cmap = 'jet', cmap_range=(None, None)):
     output = output.transpose(0, 3, 1, 2)  # (b, h, w, c) -> (b, c, h, w)
 
     return output
-
-
-def make_exec_dir(args, now):
-    for sub_d_name in ['train', 'train/checkpoints', 'train/train_blends', 'train/eval_blends']:
-        sub_d = args.res_dir / now / sub_d_name
-        if not sub_d.is_dir():
-            sub_d.mkdir(exist_ok=True, parents=True)
-    dump_args(args, now)
-
-
-def dump_args(args, now):
-    args_file = open(str(args.res_dir / now / 'dump_args.yaml'), 'w')
-    args_dict = {}
-    for arg in vars(args):
-        args_dict.update({str(arg): str(getattr(args, arg))})
-    yaml.dump(args_dict, args_file, default_flow_style=False)
 
 
 def normalize_kpoints(kpoints_2d: np.ndarray, max_x: float, max_y: float):

@@ -17,8 +17,8 @@ from utils.cad_utils import load_ply_and_3d_kpoints
 from utils.inpaint_utils import load_config
 from utils.video_info_utils import parse_calibration_file
 from utils.video_info_utils import parse_tracking_files
-from vunet.model.vunet_fixed import Vunet_fix_res
-from warp_learn.von import G_Resnet
+from vunet.models import Vunet_fix_res
+from warp_learn.models import G_Resnet
 
 
 def load_models(args):

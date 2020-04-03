@@ -1,6 +1,3 @@
-"""
-    Miscellaneous geometric functions
-"""
 from typing import Sequence
 from typing import Union
 

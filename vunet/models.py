@@ -3,15 +3,15 @@ import argparse
 import torch
 import torch.nn as nn
 
-from vunet.model.layers import Activation
-from vunet.model.layers import MyConv2d
-from vunet.model.layers import DownSample
-from vunet.model.layers import Residual
-from vunet.model.layers import UpSample
-from vunet.model.layers import Sampler
-from vunet.model.layers import NiN
-from vunet.model.layers import SpaceToDepth
-from vunet.model.layers import DepthToSpace
+from vunet.layers import Activation
+from vunet.layers import DepthToSpace
+from vunet.layers import DownSample
+from vunet.layers import MyConv2d
+from vunet.layers import NiN
+from vunet.layers import Residual
+from vunet.layers import Sampler
+from vunet.layers import SpaceToDepth
+from vunet.layers import UpSample
 
 
 class AutoRegressiveBlock(nn.Module):

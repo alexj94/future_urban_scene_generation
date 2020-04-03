@@ -1,13 +1,8 @@
-# -*- coding: utf-8 -*-
-"""
-Bounding Box
-"""
-from typing import Union
 from typing import Tuple
+from typing import Union
 
-import numpy as np
 import cv2
-
+import numpy as np
 
 Scalar = Union[int, float]
 Point2D = Union[Tuple[Scalar, Scalar], np.ndarray]

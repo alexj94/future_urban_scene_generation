@@ -1,6 +1,3 @@
-"""
-    Crop functions for images and kpoints
-"""
 import numpy as np
 
 
@@ -21,7 +18,7 @@ def square_crop_from_bbox(image: np.ndarray, bbox: list, dataset: str = 'pascal'
         x_min, y_min, side_y, side_x, _ = bbox
         major_side = max(side_x, side_y)
 
-    major_side *= 1.1  # todo: tweak this
+    major_side *= 1.1
 
     center_x = x_min + side_x / 2  # defined as in https://github.com/geopavlakos/object3d/blob/master/demoCustom.m
     center_y = y_min + side_y / 2  # defined as in https://github.com/geopavlakos/object3d/blob/master/demoCustom.m

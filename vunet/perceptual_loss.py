@@ -2,7 +2,8 @@ from pathlib import Path
 
 import torch
 import torch.nn as nn
-from vunet.model.vgg19_caffe import CaffeVGG19
+
+from vunet.vgg19_caffe import CaffeVGG19
 
 
 class PerceptualLayer(nn.Module):

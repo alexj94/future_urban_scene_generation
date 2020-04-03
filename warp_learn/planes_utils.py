@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Planes warping utils functions
-"""
 from typing import List
 from typing import Union
 

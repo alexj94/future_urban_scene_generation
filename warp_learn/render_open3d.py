@@ -1,5 +1,5 @@
-import open3d as o3d
 import numpy as np
+import open3d as o3d
 
 
 def align_view(vis: o3d.visualization.VisualizerWithKeyCallback,
