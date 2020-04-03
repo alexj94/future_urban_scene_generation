@@ -1,7 +1,7 @@
 # Future urbane scene generation through vehicle synthesis
 
 <p align="center">
-  <img src="imgs/sequence.png"/ alt="Multi stage pipeline">
+  <img src="imgs/sequence.png"/ alt="Sequence result example">
 </p>
 
 ## Abstract
@@ -54,17 +54,17 @@ system.
 ### How to run test
 
 To run the demo of our project, please firstly download all 
-the required data at this **link** and save them in a
-`<data_dir>` of your choice. We tested our pipeline on 
-**CityFlow** dataset that already have annotated bounding 
-boxes and trajectories of vehicles.
+the required data at this [link](https://drive.google.com/open?id=1jZ5KwrIFY78vURmI-3ceHRZtk3CPQhot) 
+and save them in a `<data_dir>` of your choice. We tested 
+our pipeline on the **CityFlow** dataset that already have 
+annotated bounding boxes and trajectories of vehicles.
 
-The test script is `gui_test.py` that expects some 
+The test script is `run_test.py` that expects some 
 arguments as mandatory: video, 3D keypoints and checkpoints 
 directories.
 
 ```bash
-python gui_test.py <data_dir>/<video_dir> <data_dir>/3Dkpoints <data_dir>/checkpoints --det_mode ssd512|yolo3|mask_rcnn --track_mode tc|deepsort|moana --bbox_scale 1.15 --device cpu|cuda
+python run_test.py <data_dir>/<videos_dir> <data_dir>/pascal_cads <data_dir>/checkpoints --det_mode ssd512|yolo3|mask_rcnn --track_mode tc|deepsort|moana --bbox_scale 1.15 --device cpu|cuda
 ```
 
 Add the parameter `--inpaint` to use the inpainting on the 
@@ -77,7 +77,7 @@ which you can choose whichever vehicle you want that
 was detected in the video frame or change the video frame.
 
 <p align="center">
-  <img src="imgs/gui.png"/ alt="Multi stage pipeline">
+  <img src="imgs/gui.png"/ alt="GUI window">
 </p>
 
 The commands working on this window are:
