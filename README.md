@@ -30,23 +30,31 @@ methods or by the user.
 
 ### Install
 
-Run the following command to install all requirements in a 
+Run the following commands to install all requirements in a 
 new virtual environment:
 
 ```bash
+conda create -n <env_name> python=3.6
+conda activate <env_name>
 pip install -r requirements.txt
 ```
 
-In order to make working the MaskRCNN, go to directory 
-`detectron2` and then execute this command using the 
-virtual environment that you just created:
+### Build Detectron2 from source (MaskRCNN)
+Go to directory `detectron2` and execute the following 
+command using the virtual environment that you just 
+created:
 
 ```bash
 python -m pip install -e .
 ```
 
-Code was tested with Python 3.6 on an Ubuntu Linux based 
-system.
+To **rebuild** Detectron2 that's built from a local clone, 
+use `rm -rf build/ **/*.so` to clean the old build first. 
+You often need to rebuild detectron2 after reinstalling 
+PyTorch.
+
+Code was tested with a Conda environment (Python 3.6) on 
+an Ubuntu Linux based system.
 
 ### How to run test
 
