@@ -93,6 +93,8 @@ class main_GUI(QWidget):
         info_v_layout.setSpacing(20)
         button_v_layout = QVBoxLayout(self)
         button_v_layout.setSpacing(30)
+        warning_v_layout = QVBoxLayout(self)
+        warning_v_layout.setSpacing(5)
         button_h_layout = QHBoxLayout(self)
         button_h_layout.setSpacing(20)
 
@@ -104,9 +106,10 @@ class main_GUI(QWidget):
         third_line_instr = QLabel("2. Press 'LEFT ARROW' to go to previous frame")
         third_line_instr.setFont(QtGui.QFont('Sans Serif', 16))
         fourth_line_instr = QLabel("3. 'SINGLE MOUSE CLICK' on bounding box"
-                                   "\n     to visualize future car trajectory")
+                                   "\n    to visualize future car trajectory")
         fourth_line_instr.setFont(QtGui.QFont('Sans Serif', 16))
-        fifth_line_instr = QLabel("4. Press 'BACKSPACE' to cancel drawn trajectories")
+        fifth_line_instr = QLabel("4. Press 'BACKSPACE' to cancel drawn trajectories \n"
+                                  "    and reset parameters to perform a new test")
         fifth_line_instr.setFont(QtGui.QFont('Sans Serif', 16))
 
         info_v_layout.addWidget(first_line_instr, alignment=Qt.AlignLeft)
@@ -118,7 +121,7 @@ class main_GUI(QWidget):
         # EXECUTION BUTTONS
         button_info_label = QLabel("'DOUBLE CLICK' to select the bounding box of the\n"
                                    "vehicles on which you want to test the method.\n"
-                                   "After that click on 'RUN' button.")
+                                   "After that, click on 'RUN' button.")
         button_info_label.setFont(QtGui.QFont('Sans Serif', 16, QtGui.QFont.Cursive))
         inference_button = PushButton('RUN')
         inference_button.setFocusPolicy(Qt.NoFocus)
@@ -127,9 +130,22 @@ class main_GUI(QWidget):
         inference_button.setFont(QtGui.QFont('Sans Serif', 12, QtGui.QFont.Bold))
         inference_button.setStyleSheet('color: red')
         inference_button.clicked.connect(self.perform_test)
+        results_label = QLabel('Predictions will be saved in the directory \n'
+                               '"/results" of the project!')
+        results_label.setFont(QtGui.QFont('Sans Serif', 16, QtGui.QFont.Bold))
+        warning_label = QLabel('WARNING!')
+        warning_label.setFont(QtGui.QFont('Sans Serif', 16, QtGui.QFont.Bold))
+        warning_label.setStyleSheet('color: red')
+        note_label = QLabel('After every prediction is mandatory to reset the\n'
+                            'parameters by clicking "BACKSPACE".')
+        note_label.setFont(QtGui.QFont('Sans Serif', 16, QtGui.QFont.Cursive))
 
         button_v_layout.addWidget(button_info_label, alignment=Qt.AlignLeft)
         button_v_layout.addWidget(inference_button, alignment=Qt.AlignCenter)
+        button_v_layout.addWidget(results_label, alignment=Qt.AlignLeft)
+        warning_v_layout.addWidget(warning_label, alignment=Qt.AlignLeft)
+        warning_v_layout.addWidget(note_label, alignment=Qt.AlignLeft)
+        button_v_layout.addLayout(warning_v_layout)
 
         first_v_layout.addLayout(info_v_layout)
         first_v_layout.addLayout(button_v_layout)
