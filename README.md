@@ -40,18 +40,18 @@ pip install -r requirements.txt
 ```
 
 ### Build Detectron2 from source (MaskRCNN)
-Go to directory `detectron2` and execute the following 
-command using the virtual environment that you just 
-created:
+Execute the following commands in the virtual 
+environment you've just created:
 
 ```bash
+cd detectron2
 python -m pip install -e .
 ```
 
 To **rebuild** Detectron2 that's built from a local clone, 
 use `rm -rf build/ **/*.so` to clean the old build first. 
-You often need to rebuild detectron2 after reinstalling 
-PyTorch.
+You often need to **rebuild** detectron2 after 
+reinstalling PyTorch.
 
 Code was tested with a Conda environment (Python 3.6) on 
 an Ubuntu Linux based system.
