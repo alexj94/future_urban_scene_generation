@@ -69,7 +69,7 @@ arguments as mandatory: video, 3D keypoints and checkpoints
 directories.
 
 ```bash
-python run_test.py <data_dir>/<videos_dir> <data_dir>/pascal_cads <data_dir>/checkpoints --det_mode ssd512|yolo3|mask_rcnn --track_mode tc|deepsort|moana --bbox_scale 1.15 --device cpu|cuda
+python run_test.py <data_dir>/<video_dir> <data_dir>/pascal_cads <data_dir>/checkpoints --det_mode ssd512|yolo3|mask_rcnn --track_mode tc|deepsort|moana --bbox_scale 1.15 --device cpu|cuda
 ```
 
 Add the parameter `--inpaint` to use the inpainting on the 

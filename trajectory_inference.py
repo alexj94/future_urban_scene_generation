@@ -40,7 +40,7 @@ def traj_test(args, cap, frame_id, frame, bboxes, trajectories, inv_homo_matrix,
               device, config, edge_model, inpaint_model, model_cad, model_kp, model_icn,
               model_VUnet, cads_ply, kpoints_dicts, inpaint_flag):
     if not inpaint_flag:
-        back_frame = cv2.imread('/home/alessandro/Desktop/averaged_frame.png')
+        back_frame = cv2.imread(str(args.video_dir / 'background_frame.png'))
     h, w = frame.shape[:2]
 
     start_time = time()
