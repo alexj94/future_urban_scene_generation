@@ -48,6 +48,9 @@ def traj_test(args, cap, frame_id, frame, bboxes, trajectories, inv_homo_matrix,
     # Warp&Learn and VUnet list of future frames initialization
     result_frames_icn = np.zeros((6, h, w, 3), dtype=np.uint8)
     result_frames_vunet = np.zeros((6, h, w, 3), dtype=np.uint8)
+    if not inpaint_flag:
+        result_frames_icn[:] = back_frame
+        result_frames_vunet[:] = back_frame
 
     for i, bbox in enumerate(bboxes):
         with torch.no_grad():
