@@ -2,7 +2,7 @@ absl-py==0.8.0
 astor==0.7.1
 attrs==19.3.0
 backcall==0.1.0
-bleach==3.1.0
+bleach==3.1.4
 certifi==2019.11.28
 cffi==1.12.3
 cloudpickle==1.2.1
@@ -53,7 +53,7 @@ pandocfilters==1.4.2
 parso==0.5.1
 pexpect==4.7.0
 pickleshare==0.7.5
-Pillow==6.1.0
+Pillow>=6.2.2
 portalocker==1.5.2
 prometheus-client==0.7.1
 prompt-toolkit==2.0.10
