@@ -1,8 +1,20 @@
-# Future urbane scene generation through vehicle synthesis
+# Future urban scene generation through vehicle synthesis
+
+This repository contains Pytorch code for the [ICPR2020](https://www.micc.unifi.it/icpr2020/) paper 
+"Robust Re-Identification by Multiple Views Knowledge Distillation" [[arXiv](https://arxiv.org/abs/2007.00323)]
 
 <p align="center">
-  <img src="imgs/sequence.png"/ alt="Sequence result example">
+  <img src="imgs/sequence.png" alt="Sequence result example">
 </p>
+
+```bibtext
+@article{simoni2020future,
+  title={Future Urban Scenes Generation Through Vehicles Synthesis},
+  author={Simoni, Alessandro and Bergamini, Luca and Palazzi, Andrea and Calderara, Simone and Cucchiara, Rita},
+  journal={arXiv preprint arXiv:2007.00323},
+  year={2020}
+}
+```
 
 ## Abstract
 
