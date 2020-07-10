@@ -4,7 +4,7 @@ This repository contains Pytorch code for the [ICPR2020](https://www.micc.unifi.
 "Robust Re-Identification by Multiple Views Knowledge Distillation" [[arXiv](https://arxiv.org/abs/2007.00323)]
 
 <p align="center">
-  <img src="imgs/sequence.png" alt="Sequence result example">
+  <img src="imgs/model.png" alt="Multi stage pipeline">
 </p>
 
 ```bibtext
@@ -33,7 +33,7 @@ input trajectories) provided by state-of-the-art tracking
 methods or by the user.
 
 <p align="center">
-  <img src="imgs/model.png"/ alt="Multi stage pipeline">
+  <img src="imgs/sequence.png" alt="Sequence result example">
 </p>
 
 ---
