@@ -39,8 +39,7 @@ methods or by the user.
 ---
 
 ## Code
-Code was tested with a Conda environment (Python 3.6) on 
-an Ubuntu Linux based system (working also on a Windows based system).
+Code was tested with an Anaconda environment (Python version 3.6) on both Linux and Windows based systems.
 
 ### Install
 
