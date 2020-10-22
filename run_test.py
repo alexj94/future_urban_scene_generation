@@ -37,6 +37,11 @@ def load_models(args):
     inpaint_model.load()
     inpaint_model.eval()
 
+    # Loading MaskRCNN model ==> MaskRCNN ResNet50 FPN
+    model_maskrcnn = models.detection.maskrcnn_resnet50_fpn(pretrained=True)
+    model_maskrcnn.to(device)
+    model_maskrcnn.eval()
+
     # Loading cad classifier model ==> VGG19
     print('Loading VGG19 model...')
     model_cad = models.vgg19(pretrained=True)
@@ -81,7 +86,7 @@ def load_models(args):
                                 map_location=torch.device(device)))
     model_VUnet.eval()
 
-    return device, config, edge_model, inpaint_model, model_cad, model_kp, model_icn, model_VUnet
+    return device, config, model_maskrcnn, edge_model, inpaint_model, model_cad, model_kp, model_icn, model_VUnet
 
 
 if __name__ == '__main__':
@@ -136,21 +141,21 @@ if __name__ == '__main__':
         inv_homography_matrix = scale_matrix @ inv_homography_matrix
 
     # Load networks models
-    device, config, edge_model, inpaint_model, model_cad, model_kp, model_icn, model_VUnet = load_models(args)
+    device, config, maskrcnn_model, edge_model, inpaint_model, model_cad, model_kp, model_icn, model_VUnet = load_models(args)
 
     cads_ply = []
     kpoints_dicts = []
     _____SCALE_F = 5  # tunable value -- we choose to set all CAD vehicles length to 5 meters
     for i in range(10):
         ply, kpoints_3d_dict = load_ply_and_3d_kpoints(args.kpoints_dir, cad_idx=i)
-        ply.vertices = o3d.Vector3dVector(np.asarray(ply.vertices) * _____SCALE_F)
+        ply.vertices = o3d.utility.Vector3dVector(np.asarray(ply.vertices) * _____SCALE_F)
         cads_ply.append(ply)
         kpoints_dicts.append(kpoints_3d_dict)
 
     # Open app window
     app = QtWidgets.QApplication(sys.argv)
     ex = main_GUI('Future scene synthesis', cap, args.video_dir, trajectories,
-                  args.bbox_scale, inv_homography_matrix, args, device, config,
+                  args.bbox_scale, inv_homography_matrix, args, device, config, maskrcnn_model,
                   edge_model, inpaint_model, model_cad, model_kp, model_icn, model_VUnet,
                   cads_ply, kpoints_dicts, args.inpaint)
     sys.exit(app.exec_())

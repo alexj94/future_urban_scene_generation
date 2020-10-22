@@ -43,9 +43,9 @@ def create_inpaint_inputs_shape(config, img, mask, bbox_new_img, device):
     mask = cv2.dilate(mask, kernel, iterations=1)
     img = img[bbox_new_img[1]: bbox_new_img[3], bbox_new_img[0]: bbox_new_img[2]]
     img[np.where(mask == 255)[0], np.where(mask == 255)[1], :] = 255
-    img = cv2.resize(img, resize_w, resize_h)
+    img = cv2.resize(img, (resize_w, resize_h))
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    mask = cv2.resize(mask, resize_w, resize_h)
+    mask = cv2.resize(mask, (resize_w, resize_h))
     mask = (mask > 0).astype(np.uint8) * 255
     mask_edge = (1 - mask / 255).astype(np.bool)
     edge = canny(img_gray, config.SIGMA, mask_edge)

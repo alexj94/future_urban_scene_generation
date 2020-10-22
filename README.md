@@ -39,6 +39,8 @@ methods or by the user.
 ---
 
 ## Code
+Code was tested with a Conda environment (Python 3.6) on 
+an Ubuntu Linux based system (working also on a Windows based system).
 
 ### Install
 
@@ -51,22 +53,7 @@ conda activate <env_name>
 pip install -r requirements.txt
 ```
 
-### Build Detectron2 from source (MaskRCNN)
-Execute the following commands in the virtual 
-environment you've just created:
-
-```bash
-cd detectron2
-python -m pip install -e .
-```
-
-To **rebuild** Detectron2 that's built from a local clone, 
-use `rm -rf build/ **/*.so` to clean the old build first. 
-You often need to **rebuild** detectron2 after 
-reinstalling PyTorch.
-
-Code was tested with a Conda environment (Python 3.6) on 
-an Ubuntu Linux based system.
+Install [PyTorch](https://pytorch.org/) package (version 1.3 or above).
 
 ### How to run test
 

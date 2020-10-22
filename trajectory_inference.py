@@ -20,7 +20,7 @@ from utils.inpaint_utils import create_inpaint_inputs_shape
 from utils.keypoint_utils import get_maxima
 from utils.keypoint_utils import kpoints_array_to_dict
 from utils.keypoint_utils import kpoints_dict_to_array
-from utils.maskrcnn_utils import setup_cfg
+# from utils.maskrcnn_utils import setup_cfg
 from utils.misc_utils import to_tensor
 from utils.pnp_utils import cpc_rodr_4_angles
 from warp_learn.models import get_icn_inputs
@@ -37,7 +37,7 @@ from warp_learn.vehicle_utils import get_vehicle_information
 
 
 def traj_test(args, cap, frame_id, frame, bboxes, trajectories, inv_homo_matrix, bbox_scale, img_scale,
-              device, config, edge_model, inpaint_model, model_cad, model_kp, model_icn,
+              device, config, maskrcnn_model, edge_model, inpaint_model, model_cad, model_kp, model_icn,
               model_VUnet, cads_ply, kpoints_dicts, inpaint_flag):
     if not inpaint_flag:
         back_frame = cv2.imread(str(args.video_dir / 'background_frame.png'))
@@ -110,17 +110,13 @@ def traj_test(args, cap, frame_id, frame, bboxes, trajectories, inv_homo_matrix,
                 bbox_wh = np.array([bbox[0], bbox[1], bbox[2] - bbox[0], bbox[3] - bbox[1]])
                 _, _, bbox_new_img = create_img_bbox(curr_img_copy, bbox_wh, w, h)
 
-                cfg = setup_cfg()
-                demo = VisualizationDemo(cfg)
                 img_input = curr_img_copy[bbox_new_img[1]:bbox_new_img[3], bbox_new_img[0]:bbox_new_img[2], :]
-                predictions, _ = demo.run_on_image(img_input)
-                masks = predictions['instances']._fields['pred_masks'].to('cpu').numpy()
-                num_val_mask = []
-                for cur_mask in masks:
-                    num_val_mask.append(np.count_nonzero(cur_mask == True))
-                mask_idx = np.argmax(np.asarray(num_val_mask))
-                mask = masks[mask_idx]
-                mask = np.where(mask == True, 255, 0).astype(np.uint8)
+                img_input = torch.from_numpy((img_input / 255.).transpose(2, 0, 1)).unsqueeze(0).float()
+                predictions = maskrcnn_model(img_input)[0]
+                car_idx = np.where((predictions['labels'].numpy() == 3) | (predictions['labels'].numpy() == 8))[0]
+                car_idx = np.argmax(predictions['scores'][car_idx].detach().numpy())
+                mask = predictions['masks'][car_idx]
+                mask = np.where((mask.detach().numpy() * 255.) > 0, 255, 0).astype(np.uint8).squeeze(0)
 
                 inpaint_img, inpaint_img_gray, inpaint_mask, inpaint_edge = create_inpaint_inputs_shape(config, curr_img_copy, mask, bbox_new_img, device)
 
@@ -318,15 +314,14 @@ def traj_test(args, cap, frame_id, frame, bboxes, trajectories, inv_homo_matrix,
                         _, _, bbox_new_img = create_img_bbox(curr_img_copy, bbox_wh, w, h)
 
                         img_input = curr_img_copy[bbox_new_img[1]:bbox_new_img[3],
-                                    bbox_new_img[0]:bbox_new_img[2], :]
-                        predictions, _ = demo.run_on_image(img_input)
-                        masks = predictions['instances']._fields['pred_masks'].to('cpu').numpy()
-                        num_val_mask = []
-                        for cur_mask in masks:
-                            num_val_mask.append(np.count_nonzero(cur_mask == True))
-                        mask_idx = np.argmax(np.asarray(num_val_mask))
-                        mask = masks[mask_idx]
-                        mask = np.where(mask == True, 255, 0).astype(np.uint8)
+                                                  bbox_new_img[0]:bbox_new_img[2], :]
+                        img_input = torch.from_numpy((img_input / 255.).transpose(2, 0, 1)).unsqueeze(0).float()
+                        predictions = maskrcnn_model(img_input)[0]
+                        car_idx = np.where((predictions['labels'].numpy() == 3) | (predictions['labels'].numpy() == 8))[
+                            0]
+                        car_idx = np.argmax(predictions['scores'][car_idx].detach().numpy())
+                        mask = predictions['masks'][car_idx]
+                        mask = np.where((mask.detach().numpy() * 255.) > 0, 255, 0).astype(np.uint8).squeeze(0)
 
                         inpaint_img, inpaint_img_gray, inpaint_mask, inpaint_edge = create_inpaint_inputs_shape(config, curr_img_copy, mask, bbox_new_img, device)
 
@@ -365,7 +360,7 @@ def traj_test(args, cap, frame_id, frame, bboxes, trajectories, inv_homo_matrix,
                     kpoints_3d_dict = orig_kpoints_3d_dict.copy()
                     for k, v in kpoints_3d_dict.items():
                         kpoints_3d_dict[k] = v @ z_rot(theta) + tr
-                    ply.vertices = o3d.Vector3dVector(orig_vertices @ z_rot(theta) + tr)
+                    ply.vertices = o3d.utility.Vector3dVector(orig_vertices @ z_rot(theta) + tr)
                     kpoints_2d_next, _ = cv2.projectPoints(
                         kpoints_dict_to_array(kpoints_3d_dict, dim=3),
                         rvect, tvect, K, dist)
@@ -457,7 +452,7 @@ def traj_test(args, cap, frame_id, frame, bboxes, trajectories, inv_homo_matrix,
 
             # reset video capture and ply vertices
             cap.set(cv2.CAP_PROP_POS_FRAMES, frame_id - 1)
-            ply.vertices = o3d.Vector3dVector(orig_vertices)
+            ply.vertices = o3d.utility.Vector3dVector(orig_vertices)
 
     end_time = time()
     print(f"Prediction at 0.6s in the future of {len(bboxes)} vehicles "

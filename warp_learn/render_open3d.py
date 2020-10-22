@@ -22,7 +22,8 @@ def align_view(vis: o3d.visualization.VisualizerWithKeyCallback,
     # Use current camera extrinsics to update view
     pinhole_params.extrinsic = extrinsic
     vis.get_view_control().convert_from_pinhole_camera_parameters(pinhole_params)
-    vis.update_geometry()
+    vis.poll_events()
+    vis.update_renderer()
 
 
 def get_rendered(model_ply, w, h, extrinsic, intrinsic):
@@ -37,7 +38,6 @@ def get_rendered(model_ply, w, h, extrinsic, intrinsic):
     model_ply.vertex_colors = o3d.utility.Vector3dVector((np.asarray(model_ply.vertex_normals) + 1) / 2.)
 
     # transform geometry using ICP
-    vis.update_geometry()
     vis.poll_events()
     vis.update_renderer()
     align_view(vis, intrinsic, extrinsic)

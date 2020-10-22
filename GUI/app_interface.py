@@ -22,7 +22,7 @@ from utils.bounding_box import BoundingBox
 
 class main_GUI(QWidget):
     def __init__(self, title: str, cap, video_dir: Path, trajectories, scale,
-                 inv_homo_matrix, args, device, config, edge_model, inpaint_model,
+                 inv_homo_matrix, args, device, config, maskrcnn_mode, edge_model, inpaint_model,
                  model_cad, model_kp, model_icn, model_VUnet, cads_ply, kpoints_dicts,
                  inpaint_flag):
         """
@@ -50,6 +50,7 @@ class main_GUI(QWidget):
         self.args = args
         self.device = device
         self.config = config
+        self.maskrcnn_model = maskrcnn_mode
         self.edge_model = edge_model
         self.inpaint_model = inpaint_model
         self.model_cad = model_cad
@@ -235,12 +236,10 @@ class main_GUI(QWidget):
             # Perform trajectory mode inference
             self.cap = traj_test(self.args, self.cap, self.curr_frame, self.orig_frame.copy(),
                                  self.selected_bbox, future_trajs, self.inv_homo_matrix, self.scale,
-                                 self.img_scale, self.device, self.config, self.edge_model,
+                                 self.img_scale, self.device, self.config, self.maskrcnn_model, self.edge_model,
                                  self.inpaint_model, self.model_cad, self.model_kp, self.model_icn,
                                  self.model_VUnet, self.cads_ply, self.kpoints_dicts,
                                  self.inpaint_flag)
-
-            a = 0
 
     def get_pos(self, event):
         """
