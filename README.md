@@ -1,7 +1,7 @@
 # Future urban scene generation through vehicle synthesis
 
 This repository contains Pytorch code for the [ICPR2020](https://www.micc.unifi.it/icpr2020/) paper 
-"Future Urban Scene Generation Through Vehicle Synthesis" [[arXiv](https://arxiv.org/abs/2007.00323)]
+"Future Urban Scene Generation Through Vehicle Synthesis" [[arXiv](https://arxiv.org/abs/2007.00323v2)]
 
 <p align="center">
   <img src="imgs/model.png" alt="Multi stage pipeline">
