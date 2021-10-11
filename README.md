@@ -3,18 +3,15 @@
 This repository contains Pytorch code for the [ICPR2020](https://www.micc.unifi.it/icpr2020/) paper 
 "Future Urban Scene Generation Through Vehicle Synthesis" [[arXiv](https://arxiv.org/abs/2007.00323v2)]
 
+## Model architecture
+
+Our framework is composed by two stages:
+1) **Interpretable information extraction**: high level interpretable information is gathered from raw RGB frames (bounding boxes, trajectories, keypoints).
+2) **Novel view completion**: condition a reprojected 3D model with the original 2D appearance.
+
 <p align="center">
   <img src="imgs/model.png" alt="Multi stage pipeline">
 </p>
-
-```bibtext
-@article{simoni2020future,
-  title={Future Urban Scenes Generation Through Vehicles Synthesis},
-  author={Simoni, Alessandro and Bergamini, Luca and Palazzi, Andrea and Calderara, Simone and Cucchiara, Rita},
-  journal={arXiv preprint arXiv:2007.00323},
-  year={2020}
-}
-```
 
 ## Abstract
 
@@ -96,3 +93,17 @@ Once you selected some vehicles of your chioce by
 double-clicking in their bounding boxes, you can push the 
 `RUN` button to start the inference. The resulting frames 
 will be saved in `./results` directory.
+
+## Cite
+
+If you find this repository useful for your research, please cite the following paper:
+```bibtex
+@inproceedings{simoni2021future,
+  title={Future urban scenes generation through vehicles synthesis},
+  author={Simoni, Alessandro and Bergamini, Luca and Palazzi, Andrea and Calderara, Simone and Cucchiara, Rita},
+  booktitle={2020 25th International Conference on Pattern Recognition (ICPR)},
+  pages={4552--4559},
+  year={2021},
+  organization={IEEE}
+}
+```
